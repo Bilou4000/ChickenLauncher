@@ -31,12 +31,20 @@ public class MainCharacter : MonoBehaviour
         {
             transform.position -= transform.forward * movingSpeed * Time.deltaTime;
         }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += transform.right * movingSpeed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position -= transform.right * movingSpeed * Time.deltaTime;
+        }
 
         //PROJECTILE
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             newProjectile = Instantiate(projectile, transform.position + (transform.forward * 2), transform.rotation);
-            Destroy(newProjectile, 3);
+            //Destroy(newProjectile, 3);
         }
     }
 

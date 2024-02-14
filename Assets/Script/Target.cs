@@ -6,11 +6,6 @@ public class Target : MonoBehaviour
 {
     [SerializeField] ParticleSystem smokeImpact;
 
-    private void Start()
-    {
-        smokeImpact.Stop();
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         StartCoroutine("ParticlePlay");
