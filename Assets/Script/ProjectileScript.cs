@@ -4,10 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 using UnityEngine.XR;
+using static UnityEditor.PlayerSettings;
 
 public class ProjectileScript : MonoBehaviour
 {
-    [SerializeField] private GameObject arm, explosion, chickenNugget;
+    [SerializeField] private GameObject arm, explosion, chickenNugget, projectileChickenNugget, featherProjectile;
     [SerializeField] private GameObject[] allChickenNuggets;
     [SerializeField] private float projectileSpeed;
 
@@ -104,8 +105,10 @@ public class ProjectileScript : MonoBehaviour
     IEnumerator Explosion()
     {
         yield return new WaitForSeconds(3);
-        explosion = Instantiate(explosion, transform.position, Quaternion.identity);
 
+        //Explosion
+        explosion = Instantiate(explosion, transform.position, Quaternion.identity);
+        Destroy(explosion, 2);
 
         //Score
         int randomScore = Random.Range(100,500);
@@ -115,7 +118,7 @@ public class ProjectileScript : MonoBehaviour
         theScore1.transform.SetParent(canva.transform, true);
         theScore1.transform.SetSiblingIndex(0);
 
-        GameObject theScore2 = Instantiate(score2, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, - 3, 0), Quaternion.identity);
+        GameObject theScore2 = Instantiate(score2, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, scoreYOffset - 4, 0), Quaternion.identity);
         theScore2.transform.SetParent(canva.transform, true);
 
         scoreText1 = theScore1.GetComponent<TMP_Text>();
@@ -130,7 +133,16 @@ public class ProjectileScript : MonoBehaviour
 
         Destroy(theScore1, 1);
         Destroy(theScore2, 1);
-        Destroy(explosion, 2);
+
+        for (int i = 0; i < 3; i++)
+        {
+            Instantiate(projectileChickenNugget, transform.position, Quaternion.identity);
+        }
+
+        for (int i = 0; i < 20; i++)
+        {
+            Instantiate(featherProjectile, transform.position, Random.rotation);
+        }
 
         //ChickenNugget instantiate
         Instantiate(chickenNugget, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);

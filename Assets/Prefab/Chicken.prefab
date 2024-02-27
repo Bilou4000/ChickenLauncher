@@ -575,8 +575,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.17750329, y: 0.4488135, z: 0.4867789}
-  m_Center: {x: -0.0015347599, y: 0.22654724, z: 0.06791615}
+  m_Size: {x: 0.17750329, y: 0.44499996, z: 0.4867789}
+  m_Center: {x: -0.0015347599, y: 0.22845413, z: 0.06791615}
 --- !u!114 &2191890653537084184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +592,8 @@ MonoBehaviour:
   arm: {fileID: 0}
   explosion: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50, type: 3}
   chickenNugget: {fileID: 2590783695896433862, guid: 97ef3fa81b81c7142a0d932afce30003, type: 3}
+  projectileChickenNugget: {fileID: 2590783695896433862, guid: 3185bcb9048b8e34f84112b4bda92d01, type: 3}
+  featherProjectile: {fileID: 1630648785276812, guid: 4df1317252ba49e428648a61c57ab69b, type: 3}
   allChickenNuggets: []
   projectileSpeed: 8
   scoreYOffset: 10
