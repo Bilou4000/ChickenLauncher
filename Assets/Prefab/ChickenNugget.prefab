@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8348301633142773000}
   - component: {fileID: 1682675705120701945}
+  - component: {fileID: 2318986520284250644}
   m_Layer: 0
   m_Name: ChickenNugget
   m_TagString: ChickenNugget
@@ -62,6 +63,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &2318986520284250644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2590783695896433862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23a6547cce29ea747aa288d18a8824cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2773970396750291069
 GameObject:
   m_ObjectHideFlags: 0

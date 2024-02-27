@@ -29,16 +29,14 @@ public class ProjectileScript : MonoBehaviour
 
     private void Update()
     {
-        if (chickenNugget != null)
-        {
-            allChickenNuggets = GameObject.FindGameObjectsWithTag("ChickenNugget");
-        }
+
+        allChickenNuggets = GameObject.FindGameObjectsWithTag("ChickenNugget");
 
         if (canRun)
         {
             float minDistance = 50;
 
-            if(allChickenNuggets != null || allChickenNuggets.Length != 0)
+            if (allChickenNuggets != null || allChickenNuggets.Length != 0)
             {
                 foreach (GameObject nugget in allChickenNuggets)
                 {
@@ -63,7 +61,6 @@ public class ProjectileScript : MonoBehaviour
             animator.SetBool("Fly", true);
 
             transform.position = Vector3.MoveTowards(transform.position, posToGoTo, 0.1f);
-
         }    
     }
 
@@ -80,6 +77,7 @@ public class ProjectileScript : MonoBehaviour
             canRun = false;
             animator.SetBool("Fly", false);
             animator.SetBool("Eat", true);
+            Destroy(transform.parent.gameObject, 12);
         }
 
         if (collision.gameObject.CompareTag("Floor"))
@@ -96,12 +94,12 @@ public class ProjectileScript : MonoBehaviour
 
     IEnumerator Explosion()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         explosion = Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(explosion, 2);
 
         Instantiate(chickenNugget, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         Instantiate(chickenNugget, new Vector3(transform.position.x + 0.3f, transform.position.y, transform.position.z + 0.2f), transform.rotation);
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
