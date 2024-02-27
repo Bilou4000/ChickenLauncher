@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 public class ProjectileScript : MonoBehaviour
 {
     [SerializeField] private GameObject arm, explosion, chickenNugget;
     [SerializeField] private GameObject[] allChickenNuggets;
     [SerializeField] private float projectileSpeed;
+
+    [Header("Score")]
+    [SerializeField] private GameObject ScoreText;
+    [SerializeField] private TextMeshProUGUI scoreText1, scoreText2;
+    [SerializeField] private float scoreXOffset, scoreYOffset;
 
     private Vector3 posToGoTo;
     private Animator animator;
@@ -25,6 +29,8 @@ public class ProjectileScript : MonoBehaviour
     {
         GetComponent<Rigidbody>().AddForce(projectileSpeed * (-arm.transform.right), ForceMode.Impulse);
         animator.SetBool("Fly", true);
+
+        ScoreText.SetActive(false);
     }
 
     private void Update()
@@ -34,20 +40,7 @@ public class ProjectileScript : MonoBehaviour
 
         if (canRun)
         {
-            float minDistance = 50;
-
-            if (allChickenNuggets != null || allChickenNuggets.Length != 0)
-            {
-                foreach (GameObject nugget in allChickenNuggets)
-                {
-                    float nuggetDistance = Vector3.Distance(nugget.transform.position, transform.position);
-                    if (nuggetDistance < minDistance)
-                    {
-                        minDistance = nuggetDistance;
-                        posToGoTo = nugget.transform.position;
-                    }
-                }
-            }
+            MoveToChicken();
         }
     }
 
@@ -64,6 +57,24 @@ public class ProjectileScript : MonoBehaviour
         }    
     }
 
+    private void MoveToChicken()
+    {
+        float minDistance = 50;
+
+        if (allChickenNuggets != null || allChickenNuggets.Length != 0)
+        {
+            foreach (GameObject nugget in allChickenNuggets)
+            {
+                float nuggetDistance = Vector3.Distance(nugget.transform.position, transform.position);
+                if (nuggetDistance < minDistance)
+                {
+                    minDistance = nuggetDistance;
+                    posToGoTo = nugget.transform.position;
+                }
+            }
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy")){
@@ -77,19 +88,14 @@ public class ProjectileScript : MonoBehaviour
             canRun = false;
             animator.SetBool("Fly", false);
             animator.SetBool("Eat", true);
-            Destroy(transform.parent.gameObject, 12);
+            Destroy(transform.parent.gameObject, 15);
         }
 
-        if (collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.CompareTag("Floor") && !animator.GetCurrentAnimatorStateInfo(0).IsName("NewSmash"))
         {
             animator.SetBool("Fly", false);
             canRun = true;
         }
-
-        //if (collision.gameObject.CompareTag("Chicken"))
-        //{
-        //    Destroy(gameObject);
-        //}
     }
 
     IEnumerator Explosion()
@@ -98,6 +104,16 @@ public class ProjectileScript : MonoBehaviour
         explosion = Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(explosion, 2);
 
+        //Score
+        int randomScore = Random.Range(100,500);
+
+        scoreText1.text = randomScore.ToString();
+        scoreText2.text = randomScore.ToString();
+
+        ScoreText.transform.position = Camera.main.WorldToScreenPoint(explosion.gameObject.transform.position) + new Vector3(scoreXOffset, scoreYOffset, 0);
+        ScoreText.SetActive(true);
+
+        //ChickenNugget instantiate
         Instantiate(chickenNugget, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         Instantiate(chickenNugget, new Vector3(transform.position.x + 0.3f, transform.position.y, transform.position.z + 0.2f), transform.rotation);
         Destroy(transform.parent.gameObject);

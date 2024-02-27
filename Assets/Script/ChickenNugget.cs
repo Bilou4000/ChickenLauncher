@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ChickenNugget : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] private float spawnForce;
+
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Floor"))
-        {
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        }
+        //GetComponent<Rigidbody>().AddForce(Vector3.up * spawnForce, ForceMode.Impulse);
+        Destroy(gameObject, 20);
     }
 }
