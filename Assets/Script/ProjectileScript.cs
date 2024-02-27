@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
+using UnityEngine.XR;
 
 public class ProjectileScript : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class ProjectileScript : MonoBehaviour
     [SerializeField] private float projectileSpeed;
 
     [Header("Score")]
-    [SerializeField] private GameObject ScoreText;
-    [SerializeField] private TextMeshProUGUI scoreText1, scoreText2;
-    [SerializeField] private float scoreXOffset, scoreYOffset;
+    [SerializeField] private float scoreYOffset;
+    private GameObject score1, score2, canva;
+    private TMP_Text scoreText1, scoreText2;
 
     private Vector3 posToGoTo;
     private Animator animator;
@@ -27,10 +28,12 @@ public class ProjectileScript : MonoBehaviour
 
     private void Start()
     {
+        canva = GameObject.Find("Canvas");
+        score1 = GameObject.Find("Score1");
+        score2 = GameObject.Find("Score2");
+
         GetComponent<Rigidbody>().AddForce(projectileSpeed * (-arm.transform.right), ForceMode.Impulse);
         animator.SetBool("Fly", true);
-
-        ScoreText.SetActive(false);
     }
 
     private void Update()
@@ -102,16 +105,32 @@ public class ProjectileScript : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         explosion = Instantiate(explosion, transform.position, Quaternion.identity);
-        Destroy(explosion, 2);
+
 
         //Score
         int randomScore = Random.Range(100,500);
+        int newFontSize = (randomScore / 100) * 4;
 
+        GameObject theScore1 = Instantiate(score1, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, scoreYOffset, 0), Quaternion.identity);
+        theScore1.transform.SetParent(canva.transform, true);
+        theScore1.transform.SetSiblingIndex(0);
+
+        GameObject theScore2 = Instantiate(score2, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, - 3, 0), Quaternion.identity);
+        theScore2.transform.SetParent(canva.transform, true);
+
+        scoreText1 = theScore1.GetComponent<TMP_Text>();
+        scoreText2 = theScore2.GetComponent<TMP_Text>();
         scoreText1.text = randomScore.ToString();
         scoreText2.text = randomScore.ToString();
+        scoreText1.fontSize = newFontSize;
+        scoreText2.fontSize = newFontSize;
 
-        ScoreText.transform.position = Camera.main.WorldToScreenPoint(explosion.gameObject.transform.position) + new Vector3(scoreXOffset, scoreYOffset, 0);
-        ScoreText.SetActive(true);
+        theScore1.SetActive(true);
+        theScore2.SetActive(true);
+
+        Destroy(theScore1, 1);
+        Destroy(theScore2, 1);
+        Destroy(explosion, 2);
 
         //ChickenNugget instantiate
         Instantiate(chickenNugget, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);

@@ -594,11 +594,7 @@ MonoBehaviour:
   chickenNugget: {fileID: 2590783695896433862, guid: 97ef3fa81b81c7142a0d932afce30003, type: 3}
   allChickenNuggets: []
   projectileSpeed: 8
-  ScoreText: {fileID: 6369566687124938334, guid: 1cf9237220f546449a80178401800d18, type: 3}
-  scoreText1: {fileID: 2336483875513775651, guid: 1cf9237220f546449a80178401800d18, type: 3}
-  scoreText2: {fileID: 7478026736482085177, guid: cc1783e75c500e04e95b75f2222cafa5, type: 3}
-  scoreXOffset: 0
-  scoreYOffset: 0
+  scoreYOffset: 10
 --- !u!95 &1441702036832046027
 Animator:
   serializedVersion: 5
