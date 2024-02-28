@@ -114,6 +114,8 @@ public class ProjectileScript : MonoBehaviour
         int randomScore = Random.Range(100,500);
         int newFontSize = (randomScore / 100) * 4;
 
+        GameManager.Instance.ChangeScore(randomScore);
+
         GameObject theScore1 = Instantiate(score1, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, scoreYOffset, 0), Quaternion.identity);
         theScore1.transform.SetParent(canva.transform, true);
         theScore1.transform.SetSiblingIndex(0);
