@@ -8,6 +8,9 @@ using static UnityEditor.PlayerSettings;
 
 public class ProjectileScript : MonoBehaviour
 {
+    //NEED TO FIND A SOLUTION FOR CHICKEN_NUGGET BOUNCING ON CHICKEN + CHICKEN ON TOP OF CHICKEN
+    //***********************************************************************************************************
+
     [SerializeField] private GameObject arm, explosion, chickenNugget, projectileChickenNugget, featherProjectile;
     [SerializeField] private GameObject[] allChickenNuggets;
     [SerializeField] private float projectileSpeed;
@@ -112,15 +115,16 @@ public class ProjectileScript : MonoBehaviour
 
         //Score
         int randomScore = Random.Range(100,500);
-        int newFontSize = (randomScore / 100) * 4;
+        float randomRotation = Random.Range(-10, 10);
+        float newFontSize = (randomScore / 100) * 3.5f;
 
         GameManager.Instance.ChangeScore(randomScore);
 
-        GameObject theScore1 = Instantiate(score1, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, scoreYOffset, 0), Quaternion.identity);
+        GameObject theScore1 = Instantiate(score1, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, scoreYOffset, 0), Quaternion.Euler(0,0,randomRotation));
         theScore1.transform.SetParent(canva.transform, true);
         theScore1.transform.SetSiblingIndex(0);
 
-        GameObject theScore2 = Instantiate(score2, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, scoreYOffset - 4, 0), Quaternion.identity);
+        GameObject theScore2 = Instantiate(score2, Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0, scoreYOffset - 4, 0), Quaternion.Euler(0, 0, randomRotation));
         theScore2.transform.SetParent(canva.transform, true);
 
         scoreText1 = theScore1.GetComponent<TMP_Text>();
