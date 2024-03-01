@@ -9,5 +9,6 @@ public class ProjectileChickenImpactScript : MonoBehaviour
     void Start()
     {
         GetComponent<Rigidbody>().AddForce(Random.onUnitSphere * spawnForce, ForceMode.Impulse);
+        Destroy(gameObject, 3);
     }
 }
