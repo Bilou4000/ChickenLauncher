@@ -44,18 +44,18 @@ public class MainCharacter : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             newProjectile = Instantiate(projectile, transform.position + (transform.forward * 2), transform.rotation);
+            timeCircle.SetActive(false);
+            timeCircle.SetActive(true);
             StartCoroutine(TimePause());
         }
     }
 
     IEnumerator TimePause()
     {
-        timeCircle.SetActive(false);
-        timeCircle.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         Time.timeScale = 0.3f;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.3f);
         Time.timeScale = 1f;
+        yield return new WaitForSeconds(0.5f);
     }
-
 }
