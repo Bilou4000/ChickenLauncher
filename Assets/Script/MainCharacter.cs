@@ -5,11 +5,13 @@ using UnityEngine;
 public class MainCharacter : MonoBehaviour
 {
     [SerializeField] float movingSpeed, camSpeed;
-    [SerializeField] GameObject cam, projectile, newProjectile, timeCircle;
+    [SerializeField] GameObject cam, projectile, newProjectile, timeCircle, chargingProjectile, shootingProjectile;
 
     void Start()
     {
         timeCircle.SetActive(false);
+        chargingProjectile.SetActive(false);
+        shootingProjectile.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -41,11 +43,21 @@ public class MainCharacter : MonoBehaviour
         }
 
         //PROJECTILE
+        if (Input.GetMouseButtonDown(0))
+        {
+            chargingProjectile.SetActive(true);
+        }
         if (Input.GetMouseButtonUp(0))
         {
+            chargingProjectile.SetActive(false);
+
             newProjectile = Instantiate(projectile, transform.position + (transform.forward * 2), transform.rotation);
             timeCircle.SetActive(false);
             timeCircle.SetActive(true);
+
+            shootingProjectile.SetActive(false);
+            shootingProjectile.SetActive(true);
+
             StartCoroutine(TimePause());
         }
     }
