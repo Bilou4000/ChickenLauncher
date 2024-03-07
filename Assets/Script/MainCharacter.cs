@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
-    [SerializeField] float movingSpeed, camSpeed;
-    [SerializeField] GameObject cam, projectile, newProjectile, timeCircle, chargingProjectile, shootingProjectile;
+    [SerializeField] private float movingSpeed, camSpeed;
+    [SerializeField] private GameObject cam, projectile, timeCircle, chargingProjectile, shootingProjectile, arm;
+    private GameObject newProjectile;
+    private Animator armAnimator;
 
     void Start()
     {
+        armAnimator = arm.GetComponent<Animator>();
+
         timeCircle.SetActive(false);
         chargingProjectile.SetActive(false);
         shootingProjectile.SetActive(false);
@@ -50,6 +54,8 @@ public class MainCharacter : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             chargingProjectile.SetActive(false);
+
+            armAnimator.SetTrigger("Shoot");
 
             newProjectile = Instantiate(projectile, transform.position + (transform.forward * 2), transform.rotation);
             timeCircle.SetActive(false);

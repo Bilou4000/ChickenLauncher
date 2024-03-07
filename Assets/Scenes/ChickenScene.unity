@@ -1232,6 +1232,7 @@ GameObject:
   - component: {fileID: 1159727729}
   - component: {fileID: 1159727728}
   - component: {fileID: 1159727727}
+  - component: {fileID: 1159727730}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -1247,15 +1248,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159727725}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.44799805, y: -0.11500001, z: 0.5409851}
+  m_LocalRotation: {x: 0, y: 0.70772356, z: 0, w: 0.7064895}
+  m_LocalPosition: {x: 0.447999, y: -0.115, z: 0.5409851}
   m_LocalScale: {x: 1.3862039, y: 0.16970009, z: 0.16970009}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1496485449}
   - {fileID: 621016119}
   m_Father: {fileID: 913948720}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90.1, z: 0}
 --- !u!65 &1159727727
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1327,6 +1328,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159727725}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1159727730
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159727725}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d793541935a4a894b8d25216a9a6a05a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1237580266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,10 +1809,10 @@ MonoBehaviour:
   camSpeed: 3
   cam: {fileID: 963194225}
   projectile: {fileID: 5240802291058821009, guid: 3bd4eb13459efc04fb4e6097b0ca719f, type: 3}
-  newProjectile: {fileID: 0}
   timeCircle: {fileID: 1492166834}
   chargingProjectile: {fileID: 1496485448}
   shootingProjectile: {fileID: 621016115}
+  arm: {fileID: 1159727725}
 --- !u!4 &1731157622
 Transform:
   m_ObjectHideFlags: 0
