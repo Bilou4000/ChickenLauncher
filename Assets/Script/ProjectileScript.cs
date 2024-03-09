@@ -84,7 +84,11 @@ public class ProjectileScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")){
+        if (collision.gameObject.CompareTag("Enemy") && !canRun){
+            Time.timeScale = 1;
+
+            collision.gameObject.GetComponent<Animator>().SetTrigger("Hit");
+
             animator.SetBool("Fly", false);
             animator.SetTrigger("Smashed");
             StartCoroutine("Explosion");
@@ -107,7 +111,7 @@ public class ProjectileScript : MonoBehaviour
 
     IEnumerator Explosion()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
         //Explosion
         explosion = Instantiate(explosion, transform.position, Quaternion.identity);

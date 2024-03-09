@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainCharacter : MonoBehaviour
 {
     [SerializeField] private float movingSpeed, camSpeed;
-    [SerializeField] private GameObject cam, projectile, timeCircle, chargingProjectile, shootingProjectile, arm;
+    [SerializeField] private GameObject cam, chicken, timeCircle, chargingProjectile, shootingProjectile, arm;
     private GameObject newProjectile;
     private Animator armAnimator;
 
@@ -15,7 +15,6 @@ public class MainCharacter : MonoBehaviour
 
         timeCircle.SetActive(false);
         chargingProjectile.SetActive(false);
-        shootingProjectile.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -57,12 +56,12 @@ public class MainCharacter : MonoBehaviour
 
             armAnimator.SetTrigger("Shoot");
 
-            newProjectile = Instantiate(projectile, transform.position + (transform.forward * 2), transform.rotation);
+            Instantiate(chicken, transform.position + (transform.forward * 2), transform.rotation);
             timeCircle.SetActive(false);
             timeCircle.SetActive(true);
 
-            shootingProjectile.SetActive(false);
-            shootingProjectile.SetActive(true);
+            GameObject shootParticle = Instantiate(shootingProjectile, transform.position + (transform.forward * 2), transform.rotation);
+            shootParticle.GetComponent<ParticleSystem>().Play();
 
             StartCoroutine(TimePause());
         }
