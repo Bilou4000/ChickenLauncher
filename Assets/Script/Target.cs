@@ -15,7 +15,6 @@ public class Target : MonoBehaviour
 
     private IEnumerator ParticlePlay()
     {
-        Debug.Log(player.transform.rotation);
         GameObject particle = Instantiate(smokeImpact, transform.position, transform.rotation);
         particle.transform.forward = player.transform.forward;
 
