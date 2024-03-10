@@ -8,9 +8,6 @@ using static UnityEditor.PlayerSettings;
 
 public class ProjectileScript : MonoBehaviour
 {
-    //NEED TO FIND A SOLUTION FOR CHICKEN_NUGGET BOUNCING ON CHICKEN + CHICKEN ON TOP OF CHICKEN
-    //***********************************************************************************************************
-
     [SerializeField] private GameObject arm, explosion, chickenNugget, projectileChickenNugget, featherProjectile;
     [SerializeField] private GameObject[] allChickenNuggets;
     [SerializeField] private float projectileSpeed;
@@ -19,6 +16,8 @@ public class ProjectileScript : MonoBehaviour
     [SerializeField] private float scoreYOffset;
     private GameObject score1, score2, canva;
     private TMP_Text scoreText1, scoreText2;
+
+    private GameObject sfxChickenWalk, sfxChickenScream, sfxChickenImpact, sfxExplosion, sfxScore;
 
     private Vector3 posToGoTo;
     private Animator animator;
@@ -35,6 +34,14 @@ public class ProjectileScript : MonoBehaviour
         canva = GameObject.Find("Canvas");
         score1 = GameObject.Find("Score1");
         score2 = GameObject.Find("Score2");
+
+        sfxChickenScream = GameObject.Find("chickenScreamSFX");
+        sfxChickenWalk = GameObject.Find("chickenWalkSFX");
+        sfxChickenImpact = GameObject.Find("chickenDeadSFX");
+        sfxExplosion = GameObject.Find("ExplosionSFX");
+        sfxScore = GameObject.Find("ScoreSFX");
+
+        sfxChickenScream.GetComponent<AudioSource>().Play();
 
         GetComponent<Rigidbody>().AddForce(projectileSpeed * (-arm.transform.right), ForceMode.Impulse);
         animator.SetBool("Fly", true);
@@ -87,6 +94,9 @@ public class ProjectileScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && !canRun){
             Time.timeScale = 1;
 
+            sfxChickenScream.GetComponent<AudioSource>().Stop();
+            sfxChickenImpact.GetComponent<AudioSource>().Play();
+
             collision.gameObject.GetComponent<Animator>().SetTrigger("Hit");
 
             animator.SetBool("Fly", false);
@@ -106,6 +116,8 @@ public class ProjectileScript : MonoBehaviour
         {
             animator.SetBool("Fly", false);
             canRun = true;
+
+            sfxChickenWalk.GetComponent<AudioSource>().Play();
         }
     }
 
@@ -158,5 +170,8 @@ public class ProjectileScript : MonoBehaviour
         Instantiate(chickenNugget, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         Instantiate(chickenNugget, new Vector3(transform.position.x + 0.3f, transform.position.y, transform.position.z + 0.2f), transform.rotation);
         Destroy(transform.parent.gameObject);
+
+        sfxExplosion.GetComponent<AudioSource>().Play();
+        sfxScore.GetComponent<AudioSource>().Play();
     }
 }

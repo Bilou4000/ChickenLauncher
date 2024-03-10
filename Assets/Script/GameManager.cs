@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private TMP_Text topScoreText1, topScoreText2;
+    [SerializeField] private Animator topScoreAnimator;
     private float theScore = 0;
 
     private void Awake()
@@ -17,8 +18,10 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScore(int score)
     {
+        topScoreAnimator.SetTrigger("Big");
+
         theScore += score;
-        topScoreText1.text = "Score : " + theScore.ToString();
-        topScoreText2.text = "Score : " + theScore.ToString();
+        topScoreText1.text = theScore.ToString();
+        topScoreText2.text = theScore.ToString();
     }
 }

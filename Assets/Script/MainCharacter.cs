@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
+
     [SerializeField] private float movingSpeed, camSpeed;
-    [SerializeField] private GameObject cam, chicken, timeCircle, chargingProjectile, shootingProjectile, arm;
-    private GameObject newProjectile;
+    [SerializeField] private GameObject cam, chicken;
+
+    [Header("Shoot")]
+    [SerializeField] private GameObject timeCircle;
+    [SerializeField] private GameObject chargingProjectile, shootingProjectile, arm;
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource sfxChargingWeapon;
+    [SerializeField] private AudioSource sfxTimeshoot;
+
     private Animator armAnimator;
 
     void Start()
@@ -49,16 +58,21 @@ public class MainCharacter : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             chargingProjectile.SetActive(true);
+            sfxChargingWeapon.Play();
         }
         if (Input.GetMouseButtonUp(0))
         {
+            sfxTimeshoot.Play();
+
             chargingProjectile.SetActive(false);
+            sfxChargingWeapon.Stop();
 
             armAnimator.SetTrigger("Shoot");
 
             Instantiate(chicken, transform.position + (transform.forward * 2), transform.rotation);
             timeCircle.SetActive(false);
             timeCircle.SetActive(true);
+
 
             GameObject shootParticle = Instantiate(shootingProjectile, transform.position + (transform.forward * 2), transform.rotation);
             shootParticle.GetComponent<ParticleSystem>().Play();
