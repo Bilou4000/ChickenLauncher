@@ -1,10 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
-using UnityEngine.XR;
-using static UnityEditor.PlayerSettings;
 
 public class ProjectileScript : MonoBehaviour
 {
